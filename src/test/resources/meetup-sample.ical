@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+PRODID:-//Meetup Inc//RemoteApi//EN
+VERSION:2.0
+METHOD:PUBLISH
+CALSCALE:GREGORIAN
+X-ORIGINAL-URL:http://www.meetup.com/The-Boulder-Area-Scala-Enthusiasts/cal
+ endar/ical/The+Boulder+Area+Scala+Enthusiasts/
+X-WR-CALNAME:Events - The Boulder Area Scala Enthusiasts
+BEGIN:VEVENT
+SUMMARY:The Boulder Area Scala Enthusiasts Monthly Meetup
+DESCRIPTION:The Boulder Area Scala Enthusiasts\n\nLet's meet up to talk abo
+ ut the Scala programming language.\n\nBoulder\, CO  80301 - USA\n\nMonday\,
+  May 24 at 1:00 PM\n\nAttending: 1\n\nDetails: http://www.meetup.com/The-Bo
+ ulder-Area-Scala-Enthusiasts/calendar/scrdnynhbgc/
+LAST-MODIFIED:20100508T121038Z
+UID:event_scrdnynhbgc@meetup.com
+CLASS:PUBLIC
+CREATED:20100508T121038Z
+DTSTAMP:20100508T081038Z
+DTSTART:20100524T190000Z
+DTEND:20100524T210000Z
+GEO:40.05;-105.21
+URL:http://www.meetup.com/The-Boulder-Area-Scala-Enthusiasts/calendar/scrdn
+ ynhbgc/
+END:VEVENT
+END:VCALENDAR

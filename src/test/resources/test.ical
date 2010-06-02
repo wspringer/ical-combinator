@@ -1,0 +1,42 @@
+BEGIN:VCALENDAR
+PRODID:-//Meetup Inc//RemoteApi//EN
+VERSION:2.0
+METHOD:PUBLISH
+CALSCALE:GREGORIAN
+DESCRIPTION:Everton: Wright\, Stubbs\, Weir\, Radzinksi (Unsworth\, 84)\
+ , Campbell\, Pembridge\, Li Tie (Rodrigol\, 76)\, Naysmith\, Gravesen\,
+ Rooney (Alexandersson\, 66)\, Hibbert. Subs: Linderoth\, Simonsen. \n\nS
+ purs: Keller\, Carr (Thatcher\, 44)\,ÊTaricco\, Bunjevcevic\, Sheringham
+  (Ferdinand\, 71)\,ÊRedknapp\, Iversen (Acimovic\, 84)\, Etherington\, D
+ avies\, Gardner\, Richards. Subs: Perry\, Sullivan.
+X-ORIGINAL-URL:http://www.meetup.com/chicagoscala/calendar/ical/The+Chicago
+ -Area+Scala+Enthusiasts+(CASE)+Meetup+Group/
+X-WR-CALNAME:Events - The Chicago-Area Scala Enthusiasts (CASE) Meetup Grou
+ p
+BEGIN:VEVENT
+SUMMARY:The Chicago-Area Scala Enthusiasts (CASE): Akka Framework Hands On
+ Exercises
+DESCRIPTION:The Chicago-Area Scala Enthusiasts (CASE) Meetup Group\n\nMeeti
+ ng Topic Update: The Akka Framework: Hands On   Dean Wampler talked about t
+ he Akka Framework two meetings ago. This time\, we'll build a distributed a
+ pplication with it. Bring your laptops (or a pair programming partner).  No
+ te: As always\, you must RSVP with a real name (or email it to us separatel
+ y) so we can give your name to Aon security in order to enter the building 
+ after normal working hours. Please do so by noon so we can order the right 
+ amount of Pizza. Thanks!  Please send your suggestions or offers to speak f
+ or future meetings to the mailing list http://groups.google.com/group/chica
+ goscala. "Lightning" or full talks are welcome.  Dean Programming Scala.\n\
+ nChicago\, IL  60601 - USA\n\nThursday\, May 20 at 6:00 PM\n\nPhoto: http:/
+ /photos3.meetupstatic.com/photos/event/1/b/b/c/event_7447100.jpeg\n\nAttend
+ ing: 4\n\nDetails: http://www.meetup.com/chicagoscala/calendar/13259996/
+LAST-MODIFIED:20100502T135518Z
+UID:event_13259996@meetup.com
+CLASS:PUBLIC
+CREATED:20100422T174149Z
+DTSTAMP:20100504T094137Z
+DTSTART:20100520T230000Z
+DTEND:20100521T010000Z
+GEO:41.89;-87.64
+URL:http://www.meetup.com/chicagoscala/calendar/13259996/
+END:VEVENT
+END:VCALENDAR

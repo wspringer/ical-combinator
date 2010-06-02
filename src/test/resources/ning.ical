@@ -1,0 +1,205 @@
+BEGIN:VCALENDAR
+PRODID:NingEventWidget-v1
+VERSION:2.0
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Amsterdam
+X-LIC-LOCATION:Europe/Amsterdam
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:4640803:Event:2482
+DTSTAMP:20100520T214602Z
+SUMMARY:DUSE V
+DESCRIPTION:The fifth DUSE meetup! And I am pleased to announce that T
+ omTom is welcoming us at their headquarters, in Amsterdam. Not only wi
+ ll they sponsor the entire event, but they will also offer a sneak pea
+ k into the internals of their Scala based software. Totally cool!\n\nB
+ ut hold on, there is more. We will also have Martin Odersky and Phil B
+ agwell joining our meetup.\n\nThe agenda is not carved in stone yet, b
+ ut it's probably going to be a little like this:\n\n- Welcome, food, \
+ "wassup ?\", etc.\n- Eric Bowman (TomTom) talks about Scala at TomTom\
+ n- Martin Odersky and/or Phil Bagwell\n- Any other points people bring
+  up\n\nOriginally, we considered adding a couple of other topics to th
+ e mix (Play comes to mind), but in face of Martin Odersky and Phil Bag
+ well being present, it's better to postpone that to some later date.\n
+ \nTomTom is located right in the heart of Amsterdam. You can easily ge
+ t there by train (Central Station, leave the station from the front si
+ de, and follow the railway tracks on your left). If you happen to come
+  by car, you can park in the parking lot beneath the library. TomTom i
+ s located at the back of the library.\n\nSee you there,\nWilfred\n\nFo
+ r more information visit http://dutch-scala-enthusiasts.ning.com/event
+ s/duse-v
+DTSTART;TZID=Europe/Amsterdam:20100526T180000
+DTEND;TZID=Europe/Amsterdam:20100526T220000
+CATEGORIES:duse, meeting
+LOCATION:TomTom Headquarters
+WEBSITE:http://maps.google.com/maps?f=q&source=s_q&hl=nl&geocode=&q=To
+ mTom+N.v.,+Oosterdoksstraat+114,+1011+DK+Amsterdam,+Netherlands&sll=38
+ .134557,-95.712891&sspn=44.629338,76.464844&ie=UTF8&hq=TomTom+N.v.,&hn
+ ear=Oosterdoksstraat+114,+1011+Amsterdam,+Nederland&ll=52.376739,4.907
+ 906&spn=0.008226,0.018668&z=16&iwloc=A
+URL:http://maps.google.com/maps?f=q&source=s_q&hl=nl&geocode=&q=TomTom
+ +N.v.,+Oosterdoksstraat+114,+1011+DK+Amsterdam,+Netherlands&sll=38.134
+ 557,-95.712891&sspn=44.629338,76.464844&ie=UTF8&hq=TomTom+N.v.,&hnear=
+ Oosterdoksstraat+114,+1011+Amsterdam,+Nederland&ll=52.376739,4.907906&
+ spn=0.008226,0.018668&z=16&iwloc=A
+CONTACT:+31 612 981 670
+ORGANIZER;CN="Wilfred Springer":http://dutch-scala-enthusiasts.ning.co
+ m/profile/WilfredSpringer
+ATTACH;FMTTYPE="image/jpeg":
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Angela S
+ indic":http://dutch-scala-enthusiasts.ning.com/profile/AngelaSindic
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jeroen v
+ an Schagen":http://dutch-scala-enthusiasts.ning.com/profile/JeroenvanS
+ chagen
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Ovidiu I
+ onescu":http://dutch-scala-enthusiasts.ning.com/profile/OvidiuIonescu
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Paul Sie
+ gmann":http://dutch-scala-enthusiasts.ning.com/profile/PaulSiegmann
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jos Jong
+ ":http://dutch-scala-enthusiasts.ning.com/profile/JosJong
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Robert C
+ abri":http://dutch-scala-enthusiasts.ning.com/profile/RobertCabri
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jurjan W
+ oltman":http://dutch-scala-enthusiasts.ning.com/profile/JurjanWoltman
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jeroen P
+ ielage":http://dutch-scala-enthusiasts.ning.com/profile/JeroenPielage
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Rick van
+  der Arend":http://dutch-scala-enthusiasts.ning.com/profile/Rickvander
+ Arend
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jim.Ogun
+ jimi":http://dutch-scala-enthusiasts.ning.com/profile/JimOgunjimi
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Dirk de 
+ Kok":http://dutch-scala-enthusiasts.ning.com/profile/DirkdeKok
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Ernest M
+ icklei":http://dutch-scala-enthusiasts.ning.com/profile/ErnestMicklei
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Danny va
+ n Bruggen":http://dutch-scala-enthusiasts.ning.com/profile/DannyvanBru
+ ggen
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Reus, Jo
+ ost":http://dutch-scala-enthusiasts.ning.com/profile/ReusJoost
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Chris Of
+ ferman":http://dutch-scala-enthusiasts.ning.com/profile/ChrisOfferman
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Tobias G
+ roothuyse":http://dutch-scala-enthusiasts.ning.com/profile/TobiasGroot
+ huyse
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Minto va
+ n der Sluis":http://dutch-scala-enthusiasts.ning.com/profile/Mintovand
+ erSluis
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Erik Ker
+ khoven":http://dutch-scala-enthusiasts.ning.com/profile/ErikKerkhoven
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Tim Rob"
+ :http://dutch-scala-enthusiasts.ning.com/profile/TimRob
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Faizal A
+ bdoelrahman":http://dutch-scala-enthusiasts.ning.com/profile/FaizalAbd
+ oelrahman
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Pieter M
+ innaar":http://dutch-scala-enthusiasts.ning.com/profile/PieterMinnaar
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Maarten 
+ Hazewinkel":http://dutch-scala-enthusiasts.ning.com/profile/MaartenHaz
+ ewinkel
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Soemirno
+  Kartosoewito":http://dutch-scala-enthusiasts.ning.com/profile/Soemirn
+ oKartosoewito
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Remco Bo
+ s":http://dutch-scala-enthusiasts.ning.com/profile/RemcoBos
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Emil van
+  Galen":http://dutch-scala-enthusiasts.ning.com/profile/EmilvanGalen
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jan Will
+ em Tulp":http://dutch-scala-enthusiasts.ning.com/profile/JanWillemTulp
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Tom Kalm
+ ijn":http://dutch-scala-enthusiasts.ning.com/profile/TomKalmijn
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN=p3t0r:htt
+ p://dutch-scala-enthusiasts.ning.com/profile/p3t0r
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Hubert I
+ waniuk":http://dutch-scala-enthusiasts.ning.com/profile/HubertIwaniuk
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Rik van 
+ der Kleij":http://dutch-scala-enthusiasts.ning.com/profile/RikvanderKl
+ eij
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Stefan V
+ erhoeff":http://dutch-scala-enthusiasts.ning.com/profile/StefanVerhoef
+ f
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Anna Nac
+ hesa":http://dutch-scala-enthusiasts.ning.com/profile/AnnaNachesa
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Eric Bow
+ man":http://dutch-scala-enthusiasts.ning.com/profile/EricBowman
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Cees de 
+ Groot":http://dutch-scala-enthusiasts.ning.com/profile/CeesdeGroot
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Aspasia 
+ Beneti":http://dutch-scala-enthusiasts.ning.com/profile/AspasiaBeneti
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Gerbrand
+  van Dieijen":http://dutch-scala-enthusiasts.ning.com/profile/Gerbrand
+ vanDieijen
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Urs Pete
+ r":http://dutch-scala-enthusiasts.ning.com/profile/UrsPeter
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Peter Ro
+ binett":http://dutch-scala-enthusiasts.ning.com/profile/PeterRobinett
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Barend G
+ arvelink":http://dutch-scala-enthusiasts.ning.com/profile/BarendGarvel
+ ink
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Sjors Gr
+ ijpink":http://dutch-scala-enthusiasts.ning.com/profile/SjorsGrijpink
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN=Ege:http:
+ //dutch-scala-enthusiasts.ning.com/profile/Ege
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Arjan Bl
+ okzijl":http://dutch-scala-enthusiasts.ning.com/profile/ArjanBlokzijl
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Lieke va
+ n der Poel":http://dutch-scala-enthusiasts.ning.com/profile/Liekevande
+ rPoel
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Age Mooi
+ j":http://dutch-scala-enthusiasts.ning.com/profile/AgeMooij
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Jesper d
+ e Jong":http://dutch-scala-enthusiasts.ning.com/profile/JesperdeJong
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Martin S
+ turm":http://dutch-scala-enthusiasts.ning.com/profile/MartinSturm
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Andrew P
+ hillips":http://dutch-scala-enthusiasts.ning.com/profile/AndrewPhillip
+ s
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;RSVP=TRUE;CN="Wilfred 
+ Springer":http://dutch-scala-enthusiasts.ning.com/profile/WilfredSprin
+ ger
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Carel B
+ ast":http://dutch-scala-enthusiasts.ning.com/profile/CarelBast
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Ton van
+  Velzen":http://dutch-scala-enthusiasts.ning.com/profile/TonvanVelzen
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Kris Ge
+ usebroek":http://dutch-scala-enthusiasts.ning.com/profile/KrisGeusebro
+ ek
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Nikola 
+ Soljaga":http://dutch-scala-enthusiasts.ning.com/profile/NikolaSoljaga
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Arjen P
+ outsma":http://dutch-scala-enthusiasts.ning.com/profile/ArjenPoutsma
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Boudewi
+ jn van Klingeren":http://dutch-scala-enthusiasts.ning.com/profile/Boud
+ ewijnvanKlingeren
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Ognjen 
+ Horga":http://dutch-scala-enthusiasts.ning.com/profile/OgnjenHorga
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Dinesh 
+ Mungra":http://dutch-scala-enthusiasts.ning.com/profile/DineshMungra
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Andrey 
+ Somov":http://dutch-scala-enthusiasts.ning.com/profile/AndreySomov
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Andy Lo
+ -A-Foe":http://dutch-scala-enthusiasts.ning.com/profile/AndyLoAFoe
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Albert 
+ Sikkema":http://dutch-scala-enthusiasts.ning.com/profile/AlbertSikkema
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Chris E
+ idhof":http://dutch-scala-enthusiasts.ning.com/profile/ChrisEidhof
+ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=TENTATIVE;RSVP=TRUE;CN="Dylan v
+ an Iersel":http://dutch-scala-enthusiasts.ning.com/profile/DylanvanIer
+ sel
+END:VEVENT
+END:VCALENDAR
