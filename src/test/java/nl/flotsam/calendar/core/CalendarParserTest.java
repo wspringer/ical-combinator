@@ -34,8 +34,6 @@ import org.springframework.core.io.ClassPathResource;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static org.junit.Assert.assertThat;
-
 public class CalendarParserTest {
 
     @Test
