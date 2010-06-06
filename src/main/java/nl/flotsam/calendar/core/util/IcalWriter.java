@@ -24,10 +24,7 @@
 package nl.flotsam.calendar.core.util;
 
 import com.google.appengine.api.urlfetch.HTTPResponse;
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
+import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -35,14 +32,12 @@ import net.fortuna.ical4j.data.UnfoldingReader;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Calendars;
-import nl.flotsam.util.Producer;
-import nl.flotsam.util.Production;
-import nl.flotsam.util.RingBasedProducer;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -70,24 +65,36 @@ public class IcalWriter {
 
     public static Calendar combine(List<URI> uris) {
         Calendar current = new net.fortuna.ical4j.model.Calendar();
-        List<Production<HTTPResponse>> productions = prepareProductions(uris);
-        Producer producer = new RingBasedProducer(10); // max 10 requests handled at a time
-        List<Future<HTTPResponse>> futures = producer.completeAll(productions);
+        List<Future<HTTPResponse>> futures = createFuturesFrom(uris);
         for (Future<HTTPResponse> future : futures) {
             try {
-                HTTPResponse response = future.get();
-                if (response.getResponseCode() == 200) {
-                    current = merge(current, response);
-                } else {
-                    logger.log(Level.WARNING, "Non-succesful download for " + response.getFinalUrl());
-                }
+                current = merge(current, future.get());
             } catch (InterruptedException e) {
-                Thread.interrupted();
+                logger.warning("Ignoring failed request");
             } catch (ExecutionException e) {
-                logger.log(Level.WARNING, "Failed to complete download.", e.getCause());
+                logger.log(Level.WARNING, "Request failed.", e.getCause());
             }
         }
         return current;
+    }
+
+    private static List<Future<HTTPResponse>> createFuturesFrom(List<URI> uris) {
+        List<Future<HTTPResponse>> results = new ArrayList<Future<HTTPResponse>>(uris.size());
+        for (URI uri : uris) {
+            Future<HTTPResponse> future = createFutureFrom(uri);
+            if (future != null) {
+                results.add(future);
+            }
+        }
+        return results;
+    }
+
+    private static Future<HTTPResponse> createFutureFrom(URI uri) {
+        try {
+            return URLFetchServiceFactory.getURLFetchService().fetchAsync(uri.toURL());
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
     private static Calendar merge(Calendar current, HTTPResponse response) {
@@ -102,33 +109,8 @@ public class IcalWriter {
         }
     }
 
-    private static List<Production<HTTPResponse>> prepareProductions(List<URI> uris) {
-        List<Production<HTTPResponse>> productions =
-                Lists.transform(uris, new Function<URI, Production<HTTPResponse>>() {
-                    @Override
-                    public Production<HTTPResponse> apply(URI uri) {
-                        try {
-                            return new URLFetchServiceProduction(uri);
-                        } catch (MalformedURLException e) {
-                            return null;
-                        }
-                    }
-                });
-        // Take out all null elements
-        return Lists.newArrayList(Iterators.filter(productions.iterator(), new Predicate<Production<HTTPResponse>>() {
-            @Override
-            public boolean apply(Production<HTTPResponse> input) {
-                return input != null;
-            }
-        }));
-    }
-
     private static Calendar loadFrom(byte[] content) throws IOException, ParserException {
         return loadFrom(new ByteArrayInputStream(content));
-    }
-
-    private static Calendar loadFrom(URI uri) throws IOException, ParserException {
-        return loadFrom(uri.toURL().openStream());
     }
 
     private static Calendar loadFrom(InputStream in) throws IOException, ParserException {
