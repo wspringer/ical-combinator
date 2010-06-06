@@ -24,6 +24,7 @@
 package nl.flotsam.calendar.web;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalMemcacheServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import nl.flotsam.calendar.core.CalendarClient;
 import nl.flotsam.test.WebResource;
@@ -44,7 +45,7 @@ import static org.junit.matchers.JUnitMatchers.containsString;
 public class LocalCompoundCalendarIntegrationTest {
 
     private final LocalServiceTestHelper helper =
-            new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+            new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig(), new LocalMemcacheServiceTestConfig());
 
     @Rule
     public WebServer server = new WebServer("TEST_HTTP_PORT", 9009, this.getClass().getClassLoader());

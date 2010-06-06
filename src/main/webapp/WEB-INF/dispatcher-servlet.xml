@@ -11,8 +11,22 @@
 
     <context:component-scan base-package="nl.flotsam.calendar"/>
 
-    <bean id="repository" class="nl.flotsam.calendar.core.persistent.PersistentCalendarRepository">
-        <constructor-arg ref="dataStoreService"/>
+    <bean id="repository" class="nl.flotsam.calendar.core.cache.CachingCalendarRepository">
+        <constructor-arg index="0">
+            <bean class="com.google.appengine.api.memcache.MemcacheServiceFactory" factory-method="getMemcacheService">
+                <constructor-arg value="calendar"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <bean class="nl.flotsam.calendar.core.persistent.PersistentCalendarRepository">
+                <constructor-arg ref="dataStoreService"/>
+            </bean>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <bean class="com.google.appengine.api.memcache.Expiration" factory-method="byDeltaSeconds">
+                <constructor-arg value="3600"/>
+            </bean>
+        </constructor-arg>
     </bean>
 
     <bean id="dataStoreService" class="com.google.appengine.api.datastore.DatastoreServiceFactory"
