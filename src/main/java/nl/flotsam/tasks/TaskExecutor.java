@@ -21,32 +21,24 @@
  * combined work based on this library. Thus, the terms and conditions of the
  * GNU General Public License cover the whole combination.
  */
-package nl.flotsam.calendar.core.util;
+package nl.flotsam.tasks;
 
-import com.google.appengine.api.urlfetch.HTTPResponse;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
-import nl.flotsam.util.Production;
+import java.util.Collection;
 
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.util.concurrent.Future;
+/**
+ * The interface to be implemented by objects capable of executing tasks that defer execution, allowing you to track
+ * progress through a {@link java.util.concurrent.Future}.
+ */
+public interface TaskExecutor {
 
-public class URLFetchServiceProduction implements Production<HTTPResponse> {
-
-    private final URL url;
-
-    public URLFetchServiceProduction(URL url) {
-        this.url = url;
-    }
-
-    public URLFetchServiceProduction(URI uri) throws MalformedURLException {
-        this.url = uri.toURL();
-    }
-
-    @Override
-    public Future<HTTPResponse> produce() {
-        return URLFetchServiceFactory.getURLFetchService().fetchAsync(url);
-    }
+    /**
+     * Executes a number of tasks.
+     *
+     * @param tasks The tasks to be executed.
+     * @param results The collection receiving the results.
+     * @param <T> The type of results expected from executing the tasks.
+     */
+    <T> void execute(Iterable<? extends Task<? extends T>> tasks,
+                     Collection<? super T> results);
 
 }

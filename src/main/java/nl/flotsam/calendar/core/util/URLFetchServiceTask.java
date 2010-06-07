@@ -21,14 +21,32 @@
  * combined work based on this library. Thus, the terms and conditions of the
  * GNU General Public License cover the whole combination.
  */
-package nl.flotsam.util;
+package nl.flotsam.calendar.core.util;
 
-import java.util.Collection;
-import java.util.List;
+import com.google.appengine.api.urlfetch.HTTPResponse;
+import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import nl.flotsam.tasks.Task;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.concurrent.Future;
 
-public interface Producer {
+public class URLFetchServiceTask implements Task<HTTPResponse> {
 
-    <T> List<Future<T>> completeAll(Collection<? extends Production<T>> productions);
+    private final URL url;
+
+    public URLFetchServiceTask(URL url) {
+        this.url = url;
+    }
+
+    public URLFetchServiceTask(URI uri) throws MalformedURLException {
+        this.url = uri.toURL();
+    }
+
+    @Override
+    public Future<HTTPResponse> start() {
+        return URLFetchServiceFactory.getURLFetchService().fetchAsync(url);
+    }
 
 }

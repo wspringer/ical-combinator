@@ -32,6 +32,8 @@ import net.fortuna.ical4j.data.UnfoldingReader;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ValidationException;
 import net.fortuna.ical4j.util.Calendars;
+import nl.flotsam.tasks.BufferedTaskExecutor;
+import nl.flotsam.tasks.Task;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
@@ -39,8 +41,8 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,17 +67,25 @@ public class IcalWriter {
 
     public static Calendar combine(List<URI> uris) {
         Calendar current = new net.fortuna.ical4j.model.Calendar();
-        List<Future<HTTPResponse>> futures = createFuturesFrom(uris);
-        for (Future<HTTPResponse> future : futures) {
-            try {
-                current = merge(current, future.get());
-            } catch (InterruptedException e) {
-                logger.warning("Ignoring failed request");
-            } catch (ExecutionException e) {
-                logger.log(Level.WARNING, "Request failed.", e.getCause());
-            }
+        List<Task<HTTPResponse>> tasks = createTasksFrom(uris);
+        List<HTTPResponse> results = new LinkedList<HTTPResponse>();
+        new BufferedTaskExecutor(10).execute(tasks, results);
+        for (HTTPResponse response : results) {
+            current = merge(current, response);
         }
         return current;
+    }
+
+    private static List<Task<HTTPResponse>> createTasksFrom(List<URI> uris) {
+        List<Task<HTTPResponse>> tasks = new LinkedList<Task<HTTPResponse>>();
+        for (URI uri : uris) {
+            try {
+                tasks.add(new URLFetchServiceTask(uri));
+            } catch (MalformedURLException e) {
+                logger.warning("Skipping " + uri + ", since it's not a URL.");
+            }
+        }
+        return tasks;
     }
 
     private static List<Future<HTTPResponse>> createFuturesFrom(List<URI> uris) {

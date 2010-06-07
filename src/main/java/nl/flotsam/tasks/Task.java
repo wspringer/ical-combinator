@@ -21,12 +21,23 @@
  * combined work based on this library. Thus, the terms and conditions of the
  * GNU General Public License cover the whole combination.
  */
-package nl.flotsam.util;
+package nl.flotsam.tasks;
 
 import java.util.concurrent.Future;
 
-public interface Production<T> {
+/**
+ * The abstraction of something that can be started, while progress can be tracked with a {@link
+ * java.util.concurrent.Future} returned.
+ *
+ * @param <T> The type of value returned from the {@link java.util.concurrent.Future}.
+ */
+public interface Task<T> {
 
-    Future<T> produce();
+    /**
+     * Starts the execution. Note that you are not expected to call this method multiple times.
+     *
+     * @return The object to keep track of asynchronous execution of the task.
+     */
+    Future<T> start();
 
 }
