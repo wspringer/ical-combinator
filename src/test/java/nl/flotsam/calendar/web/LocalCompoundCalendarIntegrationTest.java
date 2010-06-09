@@ -39,6 +39,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.Semaphore;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
 
@@ -91,7 +92,7 @@ public class LocalCompoundCalendarIntegrationTest {
     public void shouldReturnResultsAsText() throws URISyntaxException {
         CalendarClient client = new CalendarClient(getBaseURI());
         client.putCalendar("test", new URI(remoteServer.getURL()));
-        System.err.println(client.getCalendarAsText("test"));
+        assertThat(client.getCalendarAsListURIs("test"), hasItem(new URI(remoteServer.getURL())));
     }
 
     protected URI getBaseURI() {

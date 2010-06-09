@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -78,8 +79,9 @@ public class CalendarClient {
         return getCalendarAsType(key, "text/calendar");
     }
 
-    public String getCalendarAsText(String key) {
-        return getCalendarAsType(key, "text/plain");
+    public List<URI> getCalendarAsListURIs(String key) {
+        String address = UriBuilder.fromUri(baseURI).path("calendars").build().toASCIIString() + "/{key}";
+        return template.getForObject(address, List.class, key);        
     }
 
     public String getCalendarAsType(String key, String contentType) {
