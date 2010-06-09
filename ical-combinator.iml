@@ -64,6 +64,7 @@
     <orderEntry type="library" exported="" name="Maven: joda-time:joda-time:1.6" level="project" />
     <orderEntry type="library" exported="" name="Maven: com.google.collections:google-collections:1.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: org.hamcrest:hamcrest-all:1.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.mockito:mockito-all:1.8.0" level="project" />
   </component>
 </module>
 

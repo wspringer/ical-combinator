@@ -74,20 +74,32 @@ public class CalendarController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/calendars/{key}")
-    public ModelAndView getCalendarAsIcal(@PathVariable("key") String key,
-                                          @RequestHeader("Accept") String acceptHeader,
+    @ResponseBody
+    public List<URI> getCalendarAsText(@PathVariable("key") String key) {
+        Calendar calendar = repository.getCalendar(key);
+        return calendar.getFeeds();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/calendars/{key}", headers = "accept=text/calendar")
+    public ModelAndView getCalendarAsIcalByContentType(@PathVariable("key") String key,
                                           HttpServletRequest request)
             throws ValidationException, IOException, NoSuchRequestHandlingMethodException
     {
+        return getCalendar(key, "icalView", request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/calendars/{key}/ical")
+    public ModelAndView getCalendarAsIcal(@PathVariable("key") String key,
+                                          HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
+        return getCalendar(key, "icalView", request);        
+    }
+
+    private ModelAndView getCalendar(String key, String viewName, HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
         Calendar calendar = repository.getCalendar(key);
         if (calendar == null) {
             throw new NoSuchRequestHandlingMethodException(request);
         }
-        if (acceptHeader.contains("text/calendar")) {
-            return new ModelAndView("icalView", BindingResult.MODEL_KEY_PREFIX + "calendar", calendar);
-        } else {
-            return new ModelAndView("xmlView", BindingResult.MODEL_KEY_PREFIX + "calendar", calendar);
-        }
+        return new ModelAndView(viewName, BindingResult.MODEL_KEY_PREFIX + "calendar", calendar);
     }
 
 //    private URI extractURI(String id, String pathInfo) throws URISyntaxException {

@@ -78,8 +78,8 @@ public class CalendarClient {
         return getCalendarAsType(key, "text/calendar");
     }
 
-    public String getCalendarAsXml(String key) {
-        return getCalendarAsType(key, "text/xml");
+    public String getCalendarAsText(String key) {
+        return getCalendarAsType(key, "text/plain");
     }
 
     public String getCalendarAsType(String key, String contentType) {

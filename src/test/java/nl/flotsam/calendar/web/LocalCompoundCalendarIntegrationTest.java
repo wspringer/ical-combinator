@@ -87,11 +87,11 @@ public class LocalCompoundCalendarIntegrationTest {
     }
 
     @Test
-    @WebResource(content = "classpath:meetup-sample.ical", contentType = "text/calendar")
-    public void shouldReturnResultsAsXml() throws URISyntaxException {
+    @WebResource(content = "classpath:meetup-sample.ical", contentType = "text/plain")
+    public void shouldReturnResultsAsText() throws URISyntaxException {
         CalendarClient client = new CalendarClient(getBaseURI());
         client.putCalendar("test", new URI(remoteServer.getURL()));
-        System.err.println(client.getCalendarAsXml("test"));
+        System.err.println(client.getCalendarAsText("test"));
     }
 
     protected URI getBaseURI() {
