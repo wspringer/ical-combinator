@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>iCal Combinator</title>
+    <link href="style.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="main">
+      <h1>iCal Combinator</h1>
+
+      <p>Congratulations! You stumbled across the application for
+      combining <a
+      href="http://en.wikipedia.org/wiki/ICalendar">iCalendar</a>
+      calendars that we carefully try to keep secret as much as
+      possible.</p>
+      
+      <p>However, since you are now are here, we might as well tell you
+      what it is all about.</p>
+
+      <h2>What is it all about?</h2>
+
+      <p><a href="http://en.wikipedia.org/wiki/ICalendar">iCalendar</a>
+      is marching along quite nicely. The trouble is, you easily end up
+      having to track numerous .ical feeds and hook them all up with -
+      say - Google Calendar. That's a lot of labour. Time you better
+      spend on something a little more interesting.</p>
+
+      <h2>How does it work?</h2>
+      
+      <p>Pretty simple. iCal Combinator allows you to integrate
+      calendars from the commandline. It offers a simple restful API for
+      merging calendars at will.</p>
+
+      <h2>The Calendars</h2>
+      
+      <p>In iCal Combinator, every calendar is identified by a URL like
+      this:</p>
+      <pre>http://ical-combinator.appspot.com/calendars/{key}</pre>
+      
+      <p>There is no access control, so you if you create your own
+      calendar, you better choose your key wisely.</p>
+
+      <h2>Defining a Calendar</h2>
+
+      <p>To create a calendar, simply PUT a list of URLs to iCalendar
+      feeds to the calendar location of your preference. That's it.</p>
+      
+      <h2>Obtaining the definition of your Calendar</h2>
+      <p>You can always obtain of a Calendar by performing a GET on the
+      Calendar's URL.</p>
+
+      <h2>Obtaining the iCalendar feed</h2>
+      <p>... but the interesting stuff is of course to obtain an
+      integrated iCalendar feed. There are two ways. Neither one of them
+      is particularly complicated, but let's start with the simple one:
+      simply do a GET on the location of your Calendar, and append
+      '/ical'. So the full URL would be something like this:</p>
+
+      <pre>http://ical-combinator.appspot.com/calendars/{key}/ical</pre>
+      
+      <p>This way works pretty well, especially if you want to hook your
+      iCalendar feed up with some existing tools.</p>
+
+      <p>However, if you are a real restafarian, then you consider the
+      approach above one for sissies. Instead, you want the real thing:
+      Content Negotiation! Yeah, baby! Now, iCal Combinator supports
+      that as well. If you simply do a GET on the calendars URL and pass
+      an 'Accept: text/calendar' header, you will get your calendar as
+      an integrated calendar feed.</p>
+    </div>
+  </body>
+</html>
