@@ -26,6 +26,7 @@ package nl.flotsam.calendar.core.persistent;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.urlfetch.URLFetchService;
 import nl.flotsam.calendar.core.Calendar;
 import nl.flotsam.calendar.core.CalendarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,15 +40,17 @@ public class PersistentCalendarRepository implements CalendarRepository {
     private final DatastoreService store;
 
     private static final Logger logger = Logger.getLogger(PersistentCalendarRepository.class.getName());
+    private final URLFetchService urlFetchService;
 
     @Autowired
-    public PersistentCalendarRepository(DatastoreService store) {
+    public PersistentCalendarRepository(DatastoreService store, URLFetchService urlFetchService) {
         this.store = store;
+        this.urlFetchService = urlFetchService;
     }
 
     @Override
     public Calendar putCalendar(String calendarKey, List<URI> feeds) {
-        PersistentCalendar result = new PersistentCalendar(feeds);
+        PersistentCalendar result = new PersistentCalendar(feeds, urlFetchService);
         store.put(result.toEntity(calendarKey));
         return result;
     }
@@ -56,7 +59,7 @@ public class PersistentCalendarRepository implements CalendarRepository {
     public Calendar getCalendar(String key) {
         try {
             Entity entity = store.get(PersistentCalendar.getDataStoreCalendarKey(key));
-            return PersistentCalendar.fromEntity(entity);
+            return PersistentCalendar.fromEntity(entity, urlFetchService);
         } catch (EntityNotFoundException enfe) {
             logger.severe("Failed to find calendar for key " + key);
             return null;

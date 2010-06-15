@@ -54,7 +54,9 @@ public class UriListHttpMessageConverter extends AbstractHttpMessageConverter<Li
         InputStream in = inputMessage.getBody();
         try {
             String text = IOUtils.toString(in, "UTF-8");
-            return parseURIs(text);
+            List<URI> result = parseURIs(text);
+            logger.info("Produced a list of " + result.size() + " items: " + result);
+            return result;
         } catch (URISyntaxException e) {
             throw new HttpMessageNotReadableException("Illegal URI in list of URIs: " + e.getInput());
         } finally {

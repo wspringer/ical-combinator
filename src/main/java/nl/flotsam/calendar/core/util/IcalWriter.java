@@ -24,7 +24,7 @@
 package nl.flotsam.calendar.core.util;
 
 import com.google.appengine.api.urlfetch.HTTPResponse;
-import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
+import com.google.appengine.api.urlfetch.URLFetchService;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -50,9 +50,9 @@ import java.util.logging.Logger;
 public class IcalWriter {
 
     private static Logger logger = Logger.getLogger(IcalWriter.class.getName());
+    private static final String ICALENDAR_ENCODING = "UTF-8";
 
-    public static void writeAsIcal(Writer writer, List<URI> uris) throws IOException {
-        Calendar calendar = combine(uris);
+    public static void writeAsIcal(Writer writer, Calendar calendar) throws IOException {
         CalendarOutputter outputter = new CalendarOutputter(false);
         try {
             outputter.output(calendar, writer);
@@ -61,8 +61,12 @@ public class IcalWriter {
         }
     }
 
-    public static void writeAsIcal(Writer writer, URI... uris) throws IOException {
-        writeAsIcal(writer, Arrays.asList(uris));
+    public static void writeAsIcal(Writer writer, URLFetchService urlFetchService, List<URI> uris) throws IOException {
+        writeAsIcal(writer, combine(uris));
+    }
+
+    public static void writeAsIcal(Writer writer, URLFetchService urlFetchService, URI... uris) throws IOException {
+        writeAsIcal(writer, urlFetchService, Arrays.asList(uris));
     }
 
     public static Calendar combine(List<URI> uris) {
@@ -88,10 +92,10 @@ public class IcalWriter {
         return tasks;
     }
 
-    private static List<Future<HTTPResponse>> createFuturesFrom(List<URI> uris) {
+    private static List<Future<HTTPResponse>> createFuturesFrom(List<URI> uris, URLFetchService urlFetchService) {
         List<Future<HTTPResponse>> results = new ArrayList<Future<HTTPResponse>>(uris.size());
         for (URI uri : uris) {
-            Future<HTTPResponse> future = createFutureFrom(uri);
+            Future<HTTPResponse> future = createFutureFrom(uri, urlFetchService);
             if (future != null) {
                 results.add(future);
             }
@@ -99,22 +103,26 @@ public class IcalWriter {
         return results;
     }
 
-    private static Future<HTTPResponse> createFutureFrom(URI uri) {
+    private static Future<HTTPResponse> createFutureFrom(URI uri, URLFetchService urlFetchService) {
         try {
-            return URLFetchServiceFactory.getURLFetchService().fetchAsync(uri.toURL());
+            return urlFetchService.fetchAsync(uri.toURL());
         } catch (MalformedURLException e) {
             return null;
         }
     }
 
-    private static Calendar merge(Calendar current, HTTPResponse response) {
-        try {
-            return Calendars.merge(current, loadFrom(response.getContent()));
-        } catch (IOException e) {
-            logger.log(Level.WARNING, "Failed to load content from response.");
-            return current;
-        } catch (ParserException e) {
-            logger.log(Level.WARNING, "Failed to parse Calendar.");
+    public static Calendar merge(Calendar current, HTTPResponse response) {
+        if (response.getResponseCode() == 200) {
+            try {
+                return Calendars.merge(current, loadFrom(response.getContent()));
+            } catch (IOException e) {
+                logger.log(Level.WARNING, "Failed to load content from response.");
+                return current;
+            } catch (ParserException e) {
+                logger.log(Level.WARNING, "Failed to parse Calendar.");
+                return current;
+            }
+        } else {
             return current;
         }
     }
@@ -126,7 +134,7 @@ public class IcalWriter {
     private static Calendar loadFrom(InputStream in) throws IOException, ParserException {
         UnfoldingReader reader = null;
         try {
-            reader = new UnfoldingReader(new InputStreamReader(in), 3000);
+            reader = new UnfoldingReader(new InputStreamReader(in, ICALENDAR_ENCODING), 3000);
             return new CalendarBuilder().build(reader);
         } finally {
             IOUtils.closeQuietly(reader);

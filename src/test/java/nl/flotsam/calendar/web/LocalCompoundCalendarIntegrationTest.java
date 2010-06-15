@@ -37,8 +37,10 @@ import org.junit.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
@@ -93,6 +95,30 @@ public class LocalCompoundCalendarIntegrationTest {
         CalendarClient client = new CalendarClient(getBaseURI());
         client.putCalendar("test", new URI(remoteServer.getURL()));
         assertThat(client.getCalendarAsListURIs("test"), hasItem(new URI(remoteServer.getURL())));
+    }
+
+    @Test
+    @WebResource(content = "classpath:meetup-sample.ical", contentType = "text/plain")
+    public void shouldAcceptCreationFromTwoFeeds() throws URISyntaxException {
+        CalendarClient client = new CalendarClient(getBaseURI());
+        client.putCalendar("test", new URI(remoteServer.getURL()), new URI(remoteServer.getURL()));
+        List<URI> feeds = client.getCalendarAsListURIs("test");
+        assertThat(feeds.size(), is(2));
+        client.getCalendarAsIcal("test");
+        assertThat(remoteServer.getNumberOfHits(), is(2));
+    }
+
+    @Test
+    @WebResource(content = "classpath:japanese.ics", contentType = "text/plain")
+    public void shouldServeJapaneseCorrectly() throws URISyntaxException {
+        CalendarClient client = new CalendarClient(getBaseURI());
+        client.putCalendar("test", new URI(remoteServer.getURL()));
+        List<URI> feeds = client.getCalendarAsListURIs("test");
+        assertThat(feeds.size(), is(1));
+        String results = client.getCalendarAsIcal("test");
+        String snippet = "\u7b2c\uff18\uff12\u56de";
+        assertThat(remoteServer.getNumberOfHits(), is(1));
+        assertThat(results, containsString(snippet));
     }
 
     protected URI getBaseURI() {

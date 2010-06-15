@@ -23,13 +23,15 @@
  */
 package nl.flotsam.calendar.core.memory;
 
-import net.fortuna.ical4j.model.Component;
-import net.fortuna.ical4j.model.ComponentList;
+import com.google.appengine.api.urlfetch.URLFetchService;
 import nl.flotsam.calendar.core.Calendar;
 import nl.flotsam.test.WebResource;
 import nl.flotsam.test.WebResourceServer;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -38,8 +40,12 @@ import java.util.Arrays;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InMemoryCompoundCalendarRepositoryIntegrationTest {
 
+    @Mock
+    private URLFetchService urlFetchService;
+    
     @Rule
     public WebResourceServer server = new WebResourceServer("TEST_HTTP_PORT", 9009);
 
@@ -47,7 +53,7 @@ public class InMemoryCompoundCalendarRepositoryIntegrationTest {
     @WebResource(content = "classpath:meetup-sample.ical", contentType = "text/calendar")
     public void shouldRetrieveCalendarCorrectly() throws URISyntaxException {
         URI uri = new URI(server.getURL());
-        InMemoryCompoundCalendarRepository repo = new InMemoryCompoundCalendarRepository();
+        InMemoryCompoundCalendarRepository repo = new InMemoryCompoundCalendarRepository(urlFetchService);
         Calendar calendar = repo.putCalendar("test", Arrays.asList(uri));
         calendar = repo.getCalendar("test");
         assertThat(calendar, is(not(nullValue())));

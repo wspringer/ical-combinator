@@ -23,6 +23,7 @@
  */
 package nl.flotsam.calendar.core;
 
+import nl.flotsam.calendar.web.CalendarAsStringHttpMessageConverter;
 import nl.flotsam.calendar.web.UriListHttpMessageConverter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -55,6 +56,7 @@ public class CalendarClient {
         template = new RestTemplate();
         template.setMessageConverters(Arrays.asList(new HttpMessageConverter<?>[]{
                 new UriListHttpMessageConverter(),
+                new CalendarAsStringHttpMessageConverter(),
                 new StringHttpMessageConverter()
         }));
         final ClientHttpRequestFactory factory = template.getRequestFactory();
@@ -76,12 +78,17 @@ public class CalendarClient {
     }
 
     public String getCalendarAsIcal(String key) {
-        return getCalendarAsType(key, "text/calendar");
+        URI uri = UriBuilder.fromUri(baseURI)
+                .path("calendars")
+                .path("{key}")
+                .path("ical")
+                .build(key);
+        return template.getForObject(uri, String.class);
     }
 
     public List<URI> getCalendarAsListURIs(String key) {
         String address = UriBuilder.fromUri(baseURI).path("calendars").build().toASCIIString() + "/{key}";
-        return template.getForObject(address, List.class, key);        
+        return template.getForObject(address, List.class, key);
     }
 
     public String getCalendarAsType(String key, String contentType) {
@@ -95,7 +102,6 @@ public class CalendarClient {
                 template.exchange(address, HttpMethod.GET, request, String.class, params);
         return response.getBody();
     }
-
 
 
     private String getPayloadAsText(URI[] uris) {

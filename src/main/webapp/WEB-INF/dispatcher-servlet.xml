@@ -26,11 +26,15 @@
     </bean>
 
     <bean id="persistentRepository" class="nl.flotsam.calendar.core.persistent.PersistentCalendarRepository">
-        <constructor-arg ref="dataStoreService"/>
+        <constructor-arg index="0" ref="dataStoreService"/>
+        <constructor-arg index="1" ref="urlFetchService"/>
     </bean>
 
     <bean id="dataStoreService" class="com.google.appengine.api.datastore.DatastoreServiceFactory"
           factory-method="getDatastoreService"/>
+
+    <bean id="urlFetchService" class="com.google.appengine.api.urlfetch.URLFetchServiceFactory"
+          factory-method="getURLFetchService"/>
 
     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
         <property name="messageConverters">

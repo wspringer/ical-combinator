@@ -28,6 +28,7 @@ import com.google.appengine.api.memcache.MemcacheService;
 import nl.flotsam.calendar.core.Calendar;
 import nl.flotsam.calendar.core.CalendarRepository;
 import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -44,6 +45,7 @@ public class CachingCalendarRepository implements CalendarRepository {
     private final Expiration expiration;
     private final static Logger logger = Logger.getLogger(CachingCalendarRepository.class.getName());
 
+    @Autowired
     public CachingCalendarRepository(MemcacheService memcache, CalendarRepository delegate, Expiration expiration) {
         this.memcache = memcache;
         this.repository = delegate;
@@ -54,7 +56,7 @@ public class CachingCalendarRepository implements CalendarRepository {
     public Calendar putCalendar(String key, List<URI> feeds) {
         Calendar result = repository.putCalendar(key, feeds);
         CacheableCalendar cachable = createCacheableCalendar(result);
-        memcache.put(key, createCacheableCalendar(cachable), expiration);
+        memcache.put(key, cachable, expiration);
         return cachable;
     }
 

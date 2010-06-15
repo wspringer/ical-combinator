@@ -23,11 +23,13 @@
  */
 package nl.flotsam.calendar.core.memory;
 
-import net.fortuna.ical4j.data.CalendarOutputter;
+import com.google.appengine.api.urlfetch.URLFetchService;
 import net.fortuna.ical4j.model.ValidationException;
 import nl.flotsam.calendar.core.Calendar;
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -41,7 +43,11 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(MockitoJUnitRunner.class)
 public class InMemoryComoundCalendarTest {
+
+    @Mock
+    private URLFetchService urlFetchService;
 
     @Test
     public void shouldParseNingCalendarCorrectly() throws IOException, ValidationException {
@@ -50,7 +56,7 @@ public class InMemoryComoundCalendarTest {
         URI uri = resource.getURI();
 
 
-        InMemoryCompoundCalendarRepository repository = new InMemoryCompoundCalendarRepository();
+        InMemoryCompoundCalendarRepository repository = new InMemoryCompoundCalendarRepository(urlFetchService);
         Calendar calendar = repository.putCalendar("test", Arrays.asList(uri));
         calendar = repository.getCalendar("test");
         assertThat(calendar, is(not(nullValue())));

@@ -23,6 +23,7 @@
  */
 package nl.flotsam.calendar.core.memory;
 
+import com.google.appengine.api.urlfetch.URLFetchService;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import nl.flotsam.calendar.core.Calendar;
@@ -39,10 +40,15 @@ import java.util.List;
 public class InMemoryCompoundCalendarRepository implements CalendarRepository {
 
     private final HashMap<String, InMemoryCompoundCalendar> calendars = new HashMap<String, InMemoryCompoundCalendar>();
+    private final URLFetchService urlFetchService;
+
+    public InMemoryCompoundCalendarRepository(URLFetchService urlFetchService) {
+        this.urlFetchService = urlFetchService;
+    }
 
     @Override
     public Calendar putCalendar(String key, List<URI> feeds) {
-        InMemoryCompoundCalendar calendar = new InMemoryCompoundCalendar(feeds);
+        InMemoryCompoundCalendar calendar = new InMemoryCompoundCalendar(feeds, urlFetchService);
         calendars.put(key, calendar);
         return calendar;
     }
@@ -57,9 +63,11 @@ public class InMemoryCompoundCalendarRepository implements CalendarRepository {
 
         @XStreamImplicit(itemFieldName = "source")
         private final List<URI> feeds;
+        private final URLFetchService urlFetchService;
 
-        public InMemoryCompoundCalendar(List<URI> feeds) {
+        public InMemoryCompoundCalendar(List<URI> feeds, URLFetchService urlFetchService) {
             this.feeds = feeds;
+            this.urlFetchService = urlFetchService;
         }
 
         @Override
@@ -79,7 +87,7 @@ public class InMemoryCompoundCalendarRepository implements CalendarRepository {
 
         @Override
         public void toIcal(Writer writer) throws IOException {
-            IcalWriter.writeAsIcal(writer, feeds);
+            IcalWriter.writeAsIcal(writer, urlFetchService, feeds);
         }
 
     }

@@ -26,6 +26,8 @@ package nl.flotsam.calendar.core.persistent;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.urlfetch.URLFetchService;
 import nl.flotsam.calendar.core.Calendar;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.LocalDate;
@@ -51,9 +53,11 @@ public class PersistentCalendar implements Calendar {
     private final List<URI> feeds;
     private static final String KIND_CALENDAR = "calendar";
     private static final String SEPARATOR = "\n";
+    private final URLFetchService urlFetchService;
 
-    public PersistentCalendar(List<URI> feeds) {
+    public PersistentCalendar(List<URI> feeds, URLFetchService urlFetchService) {
         this.feeds = feeds;
+        this.urlFetchService = urlFetchService;
     }
 
     @Override
@@ -73,15 +77,17 @@ public class PersistentCalendar implements Calendar {
 
     @Override
     public void toIcal(Writer writer) throws IOException {
-        writeAsIcal(writer, feeds);
+        writeAsIcal(writer, urlFetchService, feeds);
     }
 
-    public static Calendar fromEntity(Entity entity) {
+    public static Calendar fromEntity(Entity entity, URLFetchService urlFetchService) {
         Object value = entity.getProperty(PROPERTY_NAME_URIS);
         if (value instanceof String) {
-            return new PersistentCalendar(stringToUriList((String) value));
+            return new PersistentCalendar(stringToUriList((String) value), urlFetchService);
+        } else if (value instanceof Text) {
+            return new PersistentCalendar(textToUriList((Text) value), urlFetchService);
         } else {
-            return new PersistentCalendar(Collections.<URI>emptyList());
+            return new PersistentCalendar(Collections.<URI>emptyList(), urlFetchService);
         }
     }
 
@@ -96,8 +102,8 @@ public class PersistentCalendar implements Calendar {
         return KeyFactory.createKey(KIND_CALENDAR, calendarKey);
     }
 
-    public static String uriListToString(List<URI> value) {
-        return StringUtils.join(value, SEPARATOR);
+    public static Text uriListToString(List<URI> value) {
+        return new Text(StringUtils.join(value, SEPARATOR));
     }
 
     public static List<URI> stringToUriList(String value) {
@@ -112,5 +118,10 @@ public class PersistentCalendar implements Calendar {
         }
         return uris;
     }
+    
+    public static List<URI> textToUriList(Text value) {
+        return stringToUriList(value.getValue());
+    }
+
 
 }

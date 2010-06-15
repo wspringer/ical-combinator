@@ -47,6 +47,9 @@ public class CalendarIcalView extends AbstractView {
             throw new ServletException("Failed to locate Calendar to be rendered.");
         }
         response.setContentType("text/calendar");
+        // TODO: We can leverage data from the Calendar here
+        response.setHeader("Cache-Control", "no-cache");
+        response.setCharacterEncoding("UTF-8");
         Writer writer = response.getWriter();
         calendar.toIcal(writer);
         writer.flush();

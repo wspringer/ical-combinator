@@ -90,11 +90,17 @@ public class CalendarController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/calendars/{key}/ical")
     public ModelAndView getCalendarAsIcal(@PathVariable("key") String key,
-                                          HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
-        return getCalendar(key, "icalView", request);        
+                                          HttpServletRequest request)
+            throws NoSuchRequestHandlingMethodException
+    {
+        return getCalendar(key, "icalView", request);
     }
 
-    private ModelAndView getCalendar(String key, String viewName, HttpServletRequest request) throws NoSuchRequestHandlingMethodException {
+    private ModelAndView getCalendar(String key,
+                                     String viewName,
+                                     HttpServletRequest request)
+            throws NoSuchRequestHandlingMethodException
+    {
         Calendar calendar = repository.getCalendar(key);
         if (calendar == null) {
             throw new NoSuchRequestHandlingMethodException(request);
